@@ -58,6 +58,16 @@ class HumanList(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+class OperatorList(APIView):
+    ''' Get the operator position. '''
+
+    def get(self, request, format=None):
+        operators = Human.objects.filter(operator=True)
+        if operators is not None:
+            serializer = HumanSerializer(operators, many=True)
+            return Response(serializer.data)
+        return Response('No operators found', status=status.HTTP_404_NOT_FOUND)
+
 class ObjectList(APIView):
     ''' List all Object. '''
 
