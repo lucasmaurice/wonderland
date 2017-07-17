@@ -33,8 +33,6 @@ class EntityList(APIView):
 
     def post(self, request, format=None):
         serializer = EntitySerializer(data=request.data)
-        address = request.data
-        print(address)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -44,7 +42,12 @@ class HumanList(APIView):
     ''' List all Human. '''
 
     def get(self, request, format=None):
-        humans = Human.objects.all()
+        humans =        serializer = EntitySerializer(data=request.data)
+        address = request.data
+        print(address)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         serializer = HumanSerializer(humans, many=True)
         return Response(serializer.data)
 
@@ -143,3 +146,10 @@ class RoomList(APIView):
         rooms = Room.objects.all()
         serializers = RoomSerializer(rooms, many=True)
         return Response(serializers.data)
+
+    def post(self, request, format=None):
+        serializer = RoomSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
