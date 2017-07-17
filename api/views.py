@@ -56,25 +56,29 @@ class HumanList(APIView):
         if entSerializer.is_valid():
             entSerializer.save()
 
-            valid = entSerializer.validated_data
-            # entity = Entity.objects.filter(name=valid['name'],
-            #                        x=valid['x'],
-            #                        y=valid['y'],
-            #                        z=valid['z']
-            #                        )
-            # request = request.copy()
-            # request['entity'] = entSerializer.validated_data.id
-            print("ID: ", entSerializer.data['id'])
+            # print("ID: ", entSerializer.data['id'])
+            # print("REQUEST: ", request)
 
-            humSerializer = HumanSerializer(data={'entity': entSerializer.data['id'],
-                                                  'gender': request.data['gender'],
-                                                  'operator': request.data['operator']
-                                                  })
+            entity = Entity.objects.get(id=entSerializer.data['id'])
+            # print("Entity: ", entity)
 
-            if humSerializer.is_valid():
-                humSerializer.save()
-                return Response(humSerializer.data, status=status.HTTP_201_CREATED)
-            return Response(humSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            gender = ""
+            operator = False
+
+            if 'gender' in request.data:
+                gender = request.data['gender']
+            if 'operator' in request.data:
+                operator = request.data['operator']
+
+            try:
+                human = Human(  entity=entity,
+                                gender=gender,
+                                operator=operator)
+                human.save()
+            except:
+                return Response("Error while creating human", status=status.HTTP_400_BAD_REQUEST)
+
+            return Response("Human "+entity.name+" as been created", status=status.HTTP_201_CREATED)
         return Response(entSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class OperatorList(APIView):

@@ -56,11 +56,11 @@ class Human(models.Model):
     gender = models.CharField(max_length=1, null=True)
     operator = models.BooleanField(default=False)
 
-    # def __str__(self):
-    #     """
-    #     String for representing the Model object (in Admin site etc.)
-    #     """
-    #     return (self.entity.name)
+    def __str__(self):
+        """
+        String for representing the Model object (in Admin site etc.)
+        """
+        return (self.entity.name)
 
 class AccessPoint(models.Model):
     id = models.AutoField(primary_key=True)
