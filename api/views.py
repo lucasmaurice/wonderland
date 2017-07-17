@@ -19,20 +19,14 @@ class EntityList(APIView):
 
     def get(self, request, format=None):
         query_params = self.request.query_params
-        entity = query_params.get('entity', None)
+        name = query_params.get('name', None)
 
-        if str(entity) == 'human':
-            humans = Human.objects.all()
-            serializer = HumanSerializer(humans, many=True)
-            return Response(serializer.data)
-        if str(entity) == 'object':
-            objects = Object.objects.all()
-            serializer = ObjectSerializer(objects, many=True)
+        if name is not None:
+            entity = Entity.objects.filter(name=name)
+            serializer = EntitySerializer(entity, many=True)
             return Response(serializer.data)
 
-        entities = Entity.objects.all()
-        serializer = EntitySerializer(entities, many=True)
-        return Response(serializer.data)
+        return Response("Entity "+str(name)+" not found", status=status.HTTP_404_NOT_FOUND)
 
     def post(self, request, format=None):
         serializer = EntitySerializer(data=request.data)
@@ -52,7 +46,8 @@ class HumanList(APIView):
         return Response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = HumanSerializer(data=request.data)
+        print(request.data)
+        serializer = HumanEntitySerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)

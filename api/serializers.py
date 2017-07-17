@@ -38,6 +38,11 @@ class HumanSerializer(serializers.ModelSerializer):
         model = Human
         fields = ('id', 'entity', 'gender', 'operator')
 
+# class HumanEntitySerializer(serializers.ModelSerializer):
+#     entity = EntitySerializer(read_only=True)
+#     class Meta:
+#         model = Human
+#         fields = ('id', 'entity.name')
 
 class ObjectSerializer(serializers.ModelSerializer):
     entity = EntitySerializer(read_only=True)
