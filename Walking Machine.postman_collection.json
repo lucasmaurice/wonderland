@@ -57,6 +57,313 @@
 				"description": "GET LIST"
 			},
 			"response": []
+		},
+		{
+			"name": "Get all rooms",
+			"request": {
+				"url": {
+					"raw": "127.0.0.1:8000/api/rooms/?name=salon/",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"rooms",
+						""
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "salon/",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "api-key",
+						"value": "asdf",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get operator",
+			"request": {
+				"url": "127.0.0.1:8000/api/operator/",
+				"method": "GET",
+				"header": [
+					{
+						"key": "api-key",
+						"value": "asdf",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": "GET LIST"
+			},
+			"response": []
+		},
+		{
+			"name": "Post an entity",
+			"request": {
+				"url": "127.0.0.1:8000/api/human/",
+				"method": "POST",
+				"header": [
+					{
+						"key": "api-key",
+						"value": "asdf",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Palett4",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "x",
+							"value": "1",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "y",
+							"value": "2",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "z",
+							"value": "5",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "gender",
+							"value": "",
+							"description": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "operator",
+							"value": "False",
+							"description": "",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"description": "POST"
+			},
+			"response": []
+		},
+		{
+			"name": "Post a Human",
+			"request": {
+				"url": "127.0.0.1:8000/api/human/",
+				"method": "POST",
+				"header": [
+					{
+						"key": "api-key",
+						"value": "asdf",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Palett4",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "x",
+							"value": "1",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "y",
+							"value": "2",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "z",
+							"value": "5",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "gender",
+							"value": "",
+							"description": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "operator",
+							"value": "False",
+							"description": "",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"description": "POST"
+			},
+			"response": []
+		},
+		{
+			"name": "Post an Object",
+			"request": {
+				"url": "127.0.0.1:8000/api/object/",
+				"method": "POST",
+				"header": [
+					{
+						"key": "api-key",
+						"value": "asdf",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "forklift",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "x",
+							"value": "1",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "y",
+							"value": "2",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "z",
+							"value": "5",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "categorie",
+							"value": "unknown",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "probability",
+							"value": "59",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": "POST"
+			},
+			"response": []
+		},
+		{
+			"name": "Post a Room",
+			"request": {
+				"url": "127.0.0.1:8000/api/rooms/",
+				"method": "POST",
+				"header": [
+					{
+						"key": "api-key",
+						"value": "asdf",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "room_name",
+							"value": "forklift",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "x1",
+							"value": "1",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "y1",
+							"value": "2",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "x2",
+							"value": "5",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "y2",
+							"value": "2",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "x3",
+							"value": "4",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "y3",
+							"value": "5",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "x4",
+							"value": "4",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "y4",
+							"value": "4",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": "POST"
+			},
+			"response": []
 		}
 	]
 }
