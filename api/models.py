@@ -75,7 +75,7 @@ class Object(models.Model):
     entity = models.OneToOneField(Entity, null=True)
     access_point = models.ForeignKey(AccessPoint, null=True)
     categorie = models.CharField(max_length=60, null=True)
-    probabilty = models.IntegerField(null=True)
+    probability = models.IntegerField(null=True)
 
     def __str__(self):
         """

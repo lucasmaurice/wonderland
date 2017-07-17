@@ -49,10 +49,7 @@ class HumanList(APIView):
         return Response(serializer.data)
 
     def post(self, request, format=None):
-        print(request.data)
-
         entSerializer = EntitySerializer(data=request.data)
-
         if entSerializer.is_valid():
             entSerializer.save()
 
@@ -100,11 +97,29 @@ class ObjectList(APIView):
         return Response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = ObjectSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        entSerializer = EntitySerializer(data=request.data)
+        if entSerializer.is_valid():
+            entSerializer.save()
+            entity = Entity.objects.get(id=entSerializer.data['id'])
+
+            categorie = ""
+            probability = 0
+
+            if 'categorie' in request.data:
+                categorie = request.data['categorie']
+            if 'probability' in request.data:
+                probability = request.data['probability']
+
+            try:
+                obj = Object(   entity=entity,
+                                categorie=categorie,
+                                probability=probability)
+                obj.save()
+            except:
+                return Response("Error while creating object", status=status.HTTP_400_BAD_REQUEST)
+
+            return Response("object "+entity.name+" as been created", status=status.HTTP_201_CREATED)
+        return Response(entSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class RoomList(APIView):
     '''
