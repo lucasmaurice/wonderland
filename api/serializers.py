@@ -21,6 +21,10 @@ class DoorSerializer(serializers.ModelSerializer):
 
 class EntitySerializer(serializers.ModelSerializer):
     room = RoomSerializer(read_only=True)
+
+    def create(self, validated_data):
+        return Entity.objects.create(**validated_data)
+        
     class Meta:
         model = Entity
         fields = ('id', 'name', 'room', 'time', 'x', 'y','z')

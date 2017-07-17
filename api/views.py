@@ -26,7 +26,10 @@ class EntityList(APIView):
             serializer = EntitySerializer(entity, many=True)
             return Response(serializer.data)
 
-        return Response("Entity "+str(name)+" not found", status=status.HTTP_404_NOT_FOUND)
+        entity = Entity.objects.all()
+        serializer = EntitySerializer(entity, many=True)
+        return Response(serializer.data)
+
 
     def post(self, request, format=None):
         serializer = EntitySerializer(data=request.data)
@@ -47,11 +50,32 @@ class HumanList(APIView):
 
     def post(self, request, format=None):
         print(request.data)
-        serializer = HumanEntitySerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        entSerializer = EntitySerializer(data=request.data)
+
+        if entSerializer.is_valid():
+            entSerializer.save()
+
+            valid = entSerializer.validated_data
+            # entity = Entity.objects.filter(name=valid['name'],
+            #                        x=valid['x'],
+            #                        y=valid['y'],
+            #                        z=valid['z']
+            #                        )
+            # request = request.copy()
+            # request['entity'] = entSerializer.validated_data.id
+            print("ID: ", entSerializer.data['id'])
+
+            humSerializer = HumanSerializer(data={'entity': entSerializer.data['id'],
+                                                  'gender': request.data['gender'],
+                                                  'operator': request.data['operator']
+                                                  })
+
+            if humSerializer.is_valid():
+                humSerializer.save()
+                return Response(humSerializer.data, status=status.HTTP_201_CREATED)
+            return Response(humSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(entSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class OperatorList(APIView):
     ''' Get the operator position. '''
