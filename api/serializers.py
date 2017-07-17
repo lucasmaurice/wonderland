@@ -24,7 +24,16 @@ class EntitySerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         return Entity.objects.create(**validated_data)
-        
+    def update(self, entity, validated_data):
+        entity.name = validated_data.get('name', entity.name)
+        entity.room = validated_data.get('room', entity.room)
+        entity.x = validated_data.get('x', entity.x)
+        entity.y = validated_data.get('y', entity.y)
+        entity.z = validated_data.get('z', entity.z)
+
+        entity.save()
+        return entity
+
     class Meta:
         model = Entity
         fields = ('id', 'name', 'room', 'time', 'x', 'y','z')
